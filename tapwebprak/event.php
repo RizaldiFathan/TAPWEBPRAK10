@@ -84,17 +84,14 @@ if (isset($_SESSION['login'])) {
     <style>
       .slide{
           margin-top: -86px;
-          /*position: absolute;
-          z-index: -1; */
+          margin-bottom: 90px;
       }
       .carousel-item {
-          height: 100vh;
+          height: 95vh;
           min-height: 300px;
-          
-          /* margin-top: -90px !important; */
       }
       .carousel-caption {
-          bottom: 220px;
+          bottom: 120px;
           margin-bottom: 30px;
       }
       .carousel-caption h5 {
@@ -113,10 +110,8 @@ if (isset($_SESSION['login'])) {
       }
       .carousel-caption a {
           text-transform: uppercase;
-          /* background: #262626; */
           padding: 10px 30px;
           display: inline-block;
-          color: #fff;
           margin-top: 15px;
       }
 
@@ -124,7 +119,7 @@ if (isset($_SESSION['login'])) {
   </head>
   <body>
     <!-- navigasi -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" id="navArea">
             <div class="container">
               <a class="navbar-brand" href="#">KUYJogja</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +129,7 @@ if (isset($_SESSION['login'])) {
                 <div class="navbar-nav ml-auto">
                   <a class="nav-item active" href="index.php">Home</a>
                   <a class="nav-item nav-link" href="event.php">Event</a>
-                  <a class="nav-item active" href="#">About</a>
+                  <a class="nav-item active" href="#info">About</a>
                   <a class="btn btn-secondary tombol" href="#" data-toggle="modal" data-target="#login">JOIN US</a>
                 </div>
               </div>
@@ -147,7 +142,7 @@ if (isset($_SESSION['login'])) {
                 <div id="btn"></div>
                 <button type="button" class="modal-title" onclick="login()">LOGIN</button>
                 <button type="button" class="modal-title" onclick="register()">REGISTER</button>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="close" data-dismiss="modal" style="color: white;" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
               </div>
@@ -219,7 +214,7 @@ if (isset($_SESSION['login'])) {
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="animated bounceInRight" style="animation-delay: 1s;">Candi Borobudur</h5>
                   <p class="animated bounceInLeft" style="animation-delay: 2s;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                  <p class="animated bounceInRight" style="animation-delay: 3s;"><a href="#" class="btn btn-secondary">More Info</a></p>
+                  <p class="animated bounceInRight" style="animation-delay: 3s;"><a href="#" class="btn btn-warning">More Info</a></p>
                 </div>
               </div>
               <div class="carousel-item">
@@ -227,7 +222,7 @@ if (isset($_SESSION['login'])) {
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="animated slideInDown" style="animation-delay: 1s;">Candi Perambanan</h5>
                   <p class="animated fadeInUp" style="animation-delay: 2s;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-secondary">More Info</a></p>
+                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-warning">More Info</a></p>
                 </div>
               </div>
               <div class="carousel-item">
@@ -235,12 +230,20 @@ if (isset($_SESSION['login'])) {
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="animated zoomIn" style="animation-delay: 1s;">Stadion Mandala Krida</h5>
                   <p class="animated fadeInLeft" style="animation-delay: 2s;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-secondary">More Info</a></p>
+                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-warning">More Info</a></p>
                 </div>
               </div>
-            </div><a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+            </div>
+            <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
           </div>
-  <div class="container">
+          <div class="container">
               <div class="container post">
                 <div class="row justify-content-center">
                   <div class="col-12">
@@ -252,7 +255,7 @@ if (isset($_SESSION['login'])) {
                           <img class="card-img-top" src="img/<?= $row['gambar']; ?>" style="height: 200px;" alt="Card image cap">
                           <div class="card-body">
                           <p class="card-text"><?= $row['judul_artikel']; ?></p>
-                          <p style="text-align:justify;"><?php $desc=substr($row['deskripsi'],0,150); echo $desc."..."?></p>
+                          <p style="text-align:justify;"><?php $desc=substr($row['deskripsi'],0,90); echo $desc."..."?></p>
                             <div class="d-flex justify-content-between align-items-center">
                               <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-outline-secondary">Tampil</button>
@@ -268,6 +271,62 @@ if (isset($_SESSION['login'])) {
                 </div>
               </div>
             </div>
+            <footer class="footer mt-auto py-3" id="info">
+              <div class="main-content">
+                <div class="left box">
+                <h2>About us</h2>
+                  <div class="content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reprehenderit vel facere adipisci natus sint? Praesentium quam autem assumenda quis eaque eius debitis dignissimos sequi unde. Dolor eos, exercitationem ipsum libero quis quibusdam odit, odio soluta, inventore iste vero impedit hic nostrum delectus esse optio autem quae! Aut, atque consequatur?</p>
+                      <div class="social">
+                        <a href="#"><span class="fab fa-facebook-f"></span></a>
+                        <a href="#"><span class="fab fa-twitter"></span></a>
+                        <a href="#"><span class="fab fa-instagram"></span></a>
+                        <a href="#"><span class="fab fa-youtube"></span></a>
+                      </div>
+                      <div class="bottom">
+                        <center>
+                          <span class="credit">Created By <a href="#">KUYJogja</a> | </span>
+                          <span class="far fa-copyright"></span> 2020 All rights reserved.
+                        </center>
+                      </div>
+                  </div>
+                </div>
+                <div class="center box">
+                <h2>Address</h2>
+                  <div class="content">
+                    <div class="place">
+                      <span class="fas fa-map-marker-alt"></span>
+                      <span class="text">Sleman, Yogyakarta</span>
+                    </div>
+                    <div class="phone">
+                      <span class="fas fa-phone"></span>
+                      <span class="text">+62-765432100</span>
+                    </div>
+                    <div class="email">
+                      <span class="fas fa-envelope"></span>
+                      <span class="text">kuyjogja@example.com</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="right box">
+                <h2>Contact us</h2>
+                  <div class="content">
+                    <form action="#">
+                      <div class="email">
+                        <div class="text">Email *</div>
+                          <input type="email" class="form-control" required>
+                      </div>
+                      <div class="msg">
+                        <div class="text">Message *</div>
+                        <textarea id=".msgForm" rows="2" cols="25" class="form-control" required></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-warning col-12">Send</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </footer>
           </main>
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -293,6 +352,18 @@ if (isset($_SESSION['login'])) {
         TransitionEvent
       }
     
+    </script>
+    <script>
+      window.addEventListener("scroll", function() {
+      let navArea = document.getElementById("navArea");
+
+      if (window.pageYOffset > 0) {
+      navArea.classList.add("is-sticky");
+      } else {
+      navArea.classList.remove("is-sticky");
+      }
+      });
+
     </script>
         <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
         <!-- <script src="js/jscript.js"></script>  -->
