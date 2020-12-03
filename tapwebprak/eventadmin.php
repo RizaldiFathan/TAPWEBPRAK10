@@ -84,15 +84,14 @@ if (isset($_SESSION['login'])) {
     <style>
       .slide{
           margin-top: -86px;
+          margin-bottom: 90px;
       }
       .carousel-item {
-          height: 100vh;
+          height: 95vh;
           min-height: 300px;
-          
-          /* margin-top: -90px !important; */
       }
       .carousel-caption {
-          bottom: 220px;
+          bottom: 120px;
           margin-bottom: 30px;
       }
       .carousel-caption h5 {
@@ -111,85 +110,54 @@ if (isset($_SESSION['login'])) {
       }
       .carousel-caption a {
           text-transform: uppercase;
-          /* background: #262626; */
           padding: 10px 30px;
           display: inline-block;
-          color: #fff;
           margin-top: 15px;
       }
 
     </style>
   </head>
   <body>      
-    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
+  <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
               <div class="modal-header">
+                  <span>Form Upload Gambar</span>
                 <div id="btn"></div>
-                <button type="button" class="modal-title" onclick="login()">LOGIN</button>
-                <button type="button" class="modal-title" onclick="register()">REGISTER</button>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true" class="">&times;</span>
                   </button>
               </div>
               <div class="modal-body">
-                <form action="" id="signup" method="POST">
+                <form method="post" enctype="multipart/form-data" action="upload.php">
                   <div class="form-group">
-                    <?php if( isset($error) ) : ?>
-                      <p style="color: red; font-style: italic;">username / password salah</p>
-                    <?php endif; ?>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Masukkan username" class="form-control" name="username" required>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Masukkan password" class="form-control" name="password" required>
+                    <?php foreach( $artikel as $art ) : ?>
+                    <input type="hidden" name="id" value="<?= $art["id_member"]; ?>">
+                    <?php endforeach; ?>
+                    <label for="judul_artikel">Judul Artikel</label>
+                    <input type="text" name="judul_artikel" class="form-control" required>
+                    <label for="artike">Upload Gambar</label>
+                    <input type="file" name="artikel" id="artikel">
                     <br>
-                    <button type="submit" class="btn btn-primary btn-block" name="login">Masuk</button>
-                  </div>
-                </form>
-                
-                <form id="register" action="input_act.php" method="POST">
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Masukkan email" name="email" required>
-                        </div>
-                        <div class="col">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Masukkan username" name="username" required>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <label class="" for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Masukkan password" name="password" required>                        
-                        </div>
-                      <div class="col">
-                        <label class="" for="password2">Konfirmasi Password</label>
-                        <input type="password" class="form-control" id="password2" placeholder="Konfirmasi password" name="password2" required>                        
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <label for="nama_member">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama_member" placeholder="Masukkan Nama Lengkap" name="nama_member" required>
-                        <label for="alamat">Alamat</label>
-                        <input type="text" class="form-control" id="alamat" placeholder="Alamat Domisili" name="alamat" required>
-                        <label for="no_identitas">No Identitas</label>
-                        <input type="text" class="form-control" id="no_identitas" placeholder="Masukkan Nomor Identitas (KTP/PASPOR/DLL)" name="no_identitas" required>
-                      </div>
-                    </div>
+                    <label for="desc">Isi Artikel</label>
+                    <textarea name="deskripsi" id="deskripsi" cols="30" rows="2" placeholder="masukan isi artikel!" class="form-control" required></textarea>
+                    <label for="kategori">Kategori</label>
+                    <select name="kategori" id="kategori" class="form-control" required>
+                      <option value="Gaming">-Pilih Kategori-</option>
+                      <option value="gaming">Gaming</option>
+                      <option value="adventur">Adventures</option>
+                      <option value="sport">Sports</option>
+                    </select>
                     <br>
-                    <button type="submit" class="btn btn-primary btn-block" name="daftar">Daftar</button>
+                    <button type="submit" class="btn btn-primary btn-block" name="upload">Upload</button>
                   </div>
                 </form>
               </div>
+            </div>
           </div>
-      </div>
-  </div>        
+      </div>        
           <!-- navigasi -->
-          <div class="sticky-top">
-          <nav class="navbar navbar-expand-lg navbar-light">
+          <nav class="navbar navbar-expand-lg navbar-light" id="navArea">
             <div class="container">
               <a class="navbar-brand" href="#">KUYJogja</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -199,7 +167,7 @@ if (isset($_SESSION['login'])) {
                 <div class="navbar-nav ml-auto">
                   <a class="nav-item active" href="member.php">Home</a>
                   <a class="nav-item nav-link" href="eventadmin.php">Event</a>
-                  <a class="nav-item active" href="#">About</a>
+                  <a class="nav-item active" href="#info">About</a>
                   <?php 
                   $artikel = query("SELECT * FROM register");
                   ?>
@@ -211,7 +179,6 @@ if (isset($_SESSION['login'])) {
               </div>
             </div>
           </nav>
-          </div>
           <main role="main">
           <div class="carousel slide" data-ride="carousel" id="carouselExampleIndicators">
             <ol class="carousel-indicators">
@@ -225,7 +192,7 @@ if (isset($_SESSION['login'])) {
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="animated bounceInRight" style="animation-delay: 1s;">Candi Borobudur</h5>
                   <p class="animated bounceInLeft" style="animation-delay: 2s;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                  <p class="animated bounceInRight" style="animation-delay: 3s;"><a href="#" class="btn btn-secondary">More Info</a></p>
+                  <p class="animated bounceInRight" style="animation-delay: 3s;"><a href="#" class="btn btn-warning">More Info</a></p>
                 </div>
               </div>
               <div class="carousel-item">
@@ -233,7 +200,7 @@ if (isset($_SESSION['login'])) {
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="animated slideInDown" style="animation-delay: 1s;">Candi Perambanan</h5>
                   <p class="animated fadeInUp" style="animation-delay: 2s;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-secondary">More Info</a></p>
+                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-warning">More Info</a></p>
                 </div>
               </div>
               <div class="carousel-item">
@@ -241,7 +208,7 @@ if (isset($_SESSION['login'])) {
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="animated zoomIn" style="animation-delay: 1s;">Stadion Mandala Krida</h5>
                   <p class="animated fadeInLeft" style="animation-delay: 2s;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, nulla, tempore. Deserunt excepturi quas vero.</p>
-                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-secondary">More Info</a></p>
+                  <p class="animated zoomIn" style="animation-delay: 3s;"><a href="#" class="btn btn-warning">More Info</a></p>
                 </div>
               </div>
             </div><a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
@@ -274,38 +241,81 @@ if (isset($_SESSION['login'])) {
                 </div>
               </div>
             </div>
+      <footer class="footer mt-auto py-3" id="info">
+        <div class="main-content">
+          <div class="left box">
+            <h2>About us</h2>
+              <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reprehenderit vel facere adipisci natus sint? Praesentium quam autem assumenda quis eaque eius debitis dignissimos sequi unde. Dolor eos, exercitationem ipsum libero quis quibusdam odit, odio soluta, inventore iste vero impedit hic nostrum delectus esse optio autem quae! Aut, atque consequatur?</p>
+                  <div class="social">
+                    <a href="#"><span class="fab fa-facebook-f"></span></a>
+                    <a href="#"><span class="fab fa-twitter"></span></a>
+                    <a href="#"><span class="fab fa-instagram"></span></a>
+                    <a href="#"><span class="fab fa-youtube"></span></a>
+                  </div>
+                  <div class="bottom">
+                    <center>
+                      <span class="credit">Created By <a href="#">KUYJogja</a> | </span>
+                      <span class="far fa-copyright"></span> 2020 All rights reserved.
+                    </center>
+                  </div>
+                </div>
+              </div>
+                <div class="center box">
+                  <h2>Address</h2>
+                    <div class="content">
+                      <div class="place">
+                        <span class="fas fa-map-marker-alt"></span>
+                        <span class="text">Sleman, Yogyakarta</span>
+                      </div>
+                      <div class="phone">
+                        <span class="fas fa-phone"></span>
+                        <span class="text">+62-765432100</span>
+                      </div>
+                      <div class="email">
+                        <span class="fas fa-envelope"></span>
+                        <span class="text">kuyjogja@example.com</span>
+                      </div>
+                    </div>
+                 </div>
+                <div class="right box">
+                  <h2>Contact us</h2>
+                  <div class="content">
+                    <form action="#">
+                      <div class="email">
+                        <div class="text">Email *</div>
+                          <input type="email" class="form-control" required>
+                      </div>
+                      <div class="msg">
+                        <div class="text">Message *</div>
+                        <textarea id=".msgForm" rows="2" cols="25" class="form-control" required></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-warning col-12">Send</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+        </footer>
           </main>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script>
-      var x =document.getElementById("signup");
-      var y =document.getElementById("register");
-      var z =document.getElementById("btn");
-      
-      function register(){
-        x.style.left = "-400px";
-        y.style.left = "25px";
-        z.style.left = "0px";
-        TransitionEvent
+      window.addEventListener("scroll", function() {
+      let navArea = document.getElementById("navArea");
+
+      if (window.pageYOffset > 0) {
+      navArea.classList.add("is-sticky");
+      } else {
+      navArea.classList.remove("is-sticky");
       }
-    
-      function login(){
-        x.style.left = "25px";
-        y.style.left = "480px";
-        z.style.left = "0px";
-        TransitionEvent
-      }
-    
-    </script>
-        <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
-        <!-- <script src="js/jscript.js"></script>  -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script> -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> 
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+      });
+
+    </script> 
 </body>
 </html>
