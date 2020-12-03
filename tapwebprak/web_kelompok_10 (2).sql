@@ -55,7 +55,7 @@ CREATE TABLE `member` (
   `id_member` int(11) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Username` varchar(50) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(100) NOT NULL,
   `nama_member` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
   `no_ktp` char(16) NOT NULL
