@@ -1,6 +1,6 @@
 <?php 
 // koneksi ke database
-$conn = mysqli_connect("localhost", "root", "", "member");
+$conn = mysqli_connect("localhost", "root", "", "db_member");
 
 function query($query) {
 	global $conn;
@@ -123,5 +123,3 @@ function registrasi($data) {
 	return mysqli_affected_rows($conn);
 
 }
-
-?>
